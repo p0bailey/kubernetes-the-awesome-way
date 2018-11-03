@@ -9,7 +9,7 @@
 
 To give everyone the chance to get started with a multinode Kubernetes cluster just typing few commands, yes Make files are awesome :) .
 
-DISCLAIMER - This is by no means a Kubernetes production grade setup, do not expose ports, services, endpoints to the internet.
+ <img src=".img/warning.png" alt="Kubernetes" width="50"/> This is by no means a Kubernetes production grade setup, do not expose ports, services, endpoints to the internet.
 
 
 **What is Kubernetes?**
