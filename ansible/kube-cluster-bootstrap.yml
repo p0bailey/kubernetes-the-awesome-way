@@ -1,0 +1,10 @@
+---
+
+- name: Kubernetes cluster bootsrap
+  hosts: master
+  become: yes
+  vars_files: vars.yml
+
+  roles:
+    - role: system
+    - role: master
