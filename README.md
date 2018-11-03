@@ -3,7 +3,7 @@
 
 >KTAW aka "Kubernetes The Awesome Way" is a turnkey multinode vagrant based Kubernetes cluster running on top of Debian GNU/Linux 9.
 
-<img src=".img/logo.png" alt="Kubernetes" width="100"/>
+## <img src=".img/logo.png" alt="Kubernetes" width="100"/>
 
 **Why “Kubernetes The Awesome Way”?**
 
@@ -55,7 +55,9 @@ In one terminal type: `./proxy`
 
 In another type:  `make kube_dashboard`
 
+## <img src=".img/dash1.png" alt="Dashboard login" width="500"/>
 
+## <img src=".img/dash2.png" alt="Dashboard" width="500"/>
 
 Whole KTAW menu.
 ```
