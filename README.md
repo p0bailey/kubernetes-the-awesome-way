@@ -53,7 +53,7 @@ To access k8 dashboard.
 
 In one terminal type: `./proxy`
 
-In another type:  `make kube_dashboard`
+In another type:  `make kube_dashboard` and paste the token into the web UI.
 
 ## <img src=".img/dash1.png" alt="Dashboard login" width="500"/>
 
