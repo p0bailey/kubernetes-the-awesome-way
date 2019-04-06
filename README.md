@@ -12,7 +12,7 @@ understand how things work. In the beginning I have started poking around with M
 time was quite convenient to run my experiments and demos. However, moving forward I have realised that
 to have a holistic understanding of Kubernetes ecosystem I had to play with something near running it
 in a real multinode production cluster where would possible to experiment with  network policies, load balancers,
-ingress controllers and more. Hence, I decided to build my portable own Kubernetes lab and share it with the
+ingress controllers and more. Hence, I decided to build my own portable  Kubernetes lab and share it with the
 world.
 
 
