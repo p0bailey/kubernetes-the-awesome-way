@@ -1,4 +1,6 @@
-admin.conf
+.admin.conf
+token.txt
+dashboard_token.txt
 
 # OS-specific
 .DS_Store
