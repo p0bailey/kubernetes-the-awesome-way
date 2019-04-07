@@ -13,7 +13,7 @@ kube_bootstrap: kube_up  ## Start and provision kubernetes cluster and helm.
 	./kubectl apply -f kubernetes/manifests/tiller-sa.yaml; \
 	./helm init --service-account tiller; \
 	./helm  repo update; \
-	./kubectl  get pods --all-namespaces
+	make kube_status
 
 kube_setup:  ## Install Metallb, Dashboard add-ons.
 	./helm   upgrade --install   metallb --namespace=metallb-system -f  kubernetes/helm/charts/metallb/values.yaml stable/metallb; \
@@ -21,21 +21,21 @@ kube_setup:  ## Install Metallb, Dashboard add-ons.
 	./kubectl apply -f https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/influxdb/heapster.yaml; \
 	./kubectl apply -f https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/influxdb/influxdb.yaml; \
 	./kubectl apply -f kubernetes/manifests/dashboard-sa.yaml; \
-	./kubectl get svc --all-namespaces
+	make kube_status
 
 kube_ingress: ## Install Nginx ingress controller.
 	./helm upgrade --install nginx-ingress  stable/nginx-ingress --set rbac.create=true; \
-	./kubectl get svc --all-namespaces
+	make kube_status
 
 kube_cheese_services_install: ## Install Cheese services.
 	./kubectl apply -f kubernetes/manifests/cheeses_ingress/stilton.yaml; \
 	./kubectl apply -f kubernetes/manifests/cheeses_ingress/cheddar.yaml; \
-	./kubectl get svc --all-namespaces
+	make kube_status
 
 kube_cheese_services_remove: ## Remove Cheese services.
 	./kubectl delete -f kubernetes/manifests/cheeses_ingress/stilton.yaml; \
 	./kubectl delete -f kubernetes/manifests/cheeses_ingress/cheddar.yaml; \
-	./kubectl get svc --all-namespaces
+	make kube_status
 
 kube_provision: kube_setup kube_ingress kube_cheese_services_install
 
