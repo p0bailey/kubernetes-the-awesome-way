@@ -3,7 +3,7 @@
 Vagrant.configure("2") do |config|
     config.ssh.insert_key = false
     config.vm.box = "p0bailey/k8-stable"
-    config.vm.box_version = "1.1"
+    config.vm.box_version = "1.3"
 
     config.vm.provider "virtualbox" do |v|
       v.memory = 2048

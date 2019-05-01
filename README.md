@@ -129,6 +129,8 @@ Other useful commands:
 
 * 0.0.1
     * First release, Helm and Weave support.
+* 0.0.2
+    * Debian 9.9 node.
 
 ## Meta
 
