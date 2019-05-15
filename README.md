@@ -131,6 +131,8 @@ Other useful commands:
     * First release, Helm and Weave support.
 * 0.0.2
     * Debian 9.9 node.
+* 0.0.3
+    * Fix Debian 9 kernel update.    
 
 ## Meta
 
