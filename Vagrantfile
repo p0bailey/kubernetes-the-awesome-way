@@ -25,11 +25,11 @@ Vagrant.configure("2") do |config|
       node.vm.provision :shell, inline: "sed 's/127\.0\.1\.1.*node1.*/192\.168\.56\.11 node1/' -i /etc/hosts"
     end
 
-   config.vm.define "node2" do |node|
-     node.vm.hostname = "node2"
-     node.vm.network :private_network, ip: "192.168.56.12"
-     node.vm.provision :shell, inline: "sed 's/127\.0\.1\.1.*node2.*/192\.168\.56\.12 node2/' -i /etc/hosts"
-   end
+   # config.vm.define "node2" do |node|
+   #   node.vm.hostname = "node2"
+   #   node.vm.network :private_network, ip: "192.168.56.12"
+   #   node.vm.provision :shell, inline: "sed 's/127\.0\.1\.1.*node2.*/192\.168\.56\.12 node2/' -i /etc/hosts"
+   # end
 
     # config.vm.define "node3" do |node|
     #   node.vm.hostname = "node3"
