@@ -8,24 +8,32 @@ all:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 kube_bootstrap: kube_up  ## Start and provision kubernetes cluster and helm.
-	ANSIBLE_CONFIG=ansible/ansible.cfg ansible-playbook -i ansible/hosts.vagrant  ansible/kube-cluster-bootstrap.yml; \
-	ANSIBLE_CONFIG=ansible/ansible.cfg ansible-playbook -i ansible/hosts.vagrant  ansible/kube-cluster-join.yml; \
-	./kubectl apply -f kubernetes/manifests/tiller-sa.yaml; \
-	./helm init --service-account tiller; \
-	./helm  repo update; \
-	make kube_status
+	ANSIBLE_CONFIG=ansible/ansible.cfg ansible-playbook -i ansible/hosts.vagrant  ansible/kube-cluster-bootstrap.yml -vv; \
+	ANSIBLE_CONFIG=ansible/ansible.cfg ansible-playbook -i ansible/hosts.vagrant  ansible/kube-cluster-join.yml -vv; \
+	watch make kube_status
 
+	#./helm init --service-account tiller;
+	#./kubectl apply -f kubernetes/manifests/tiller-sa.yaml; \
+	#./helm init --service-account tiller; \
+
+kube_tiller:   ## Start and provision kubernetes cluster and helm.
+	./kubectl apply -f kubernetes/manifests/tiller-sa.yaml; \
+	./helm init --service-account tiller --upgrade; \
+	./helm  repo update; \
+	watch make kube_status
+#--namespace=metallb-system
 kube_setup:  ## Install Metallb, Dashboard add-ons.
-	./helm   upgrade --install   metallb --namespace=metallb-system -f  kubernetes/helm/charts/metallb/values.yaml stable/metallb; \
-	./kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard.yaml; \
-	./kubectl apply -f https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/influxdb/heapster.yaml; \
-	./kubectl apply -f https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/influxdb/influxdb.yaml; \
-	./kubectl apply -f kubernetes/manifests/dashboard-sa.yaml; \
+	./helm   upgrade --install   metallb  -f  kubernetes/helm/charts/metallb/values.yaml stable/metallb;
 	make kube_status
 
 kube_ingress: ## Install Nginx ingress controller.
 	./helm upgrade --install nginx-ingress  stable/nginx-ingress --set rbac.create=true; \
 	make kube_status
+
+	# ./kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard.yaml; \
+	# ./kubectl apply -f https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/influxdb/heapster.yaml; \
+	# ./kubectl apply -f https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/influxdb/influxdb.yaml; \
+	# ./kubectl apply -f kubernetes/manifests/dashboard-sa.yaml; \
 
 kube_cheese_services_install: ## Install Cheese services.
 	./kubectl apply -f kubernetes/manifests/cheeses_ingress/stilton.yaml; \

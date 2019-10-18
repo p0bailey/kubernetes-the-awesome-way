@@ -1,7 +1,8 @@
+#--ignore-preflight-errors=all  --kubernetes-version "1.15.4"
 ---
 - name: Initialing Kubernetes cluster Weave Network
   shell: |
-      kubeadm init --apiserver-advertise-address "{{ hostvars[groups['masters'][0]].ansible_host }}"   --pod-network-cidr="10.4.0.0/16"
+      kubeadm init --ignore-preflight-errors=all --apiserver-advertise-address "{{ hostvars[groups['masters'][0]].ansible_host }}"   --pod-network-cidr="10.4.0.0/16"
       >> cluster_up.txt
   args:
     chdir: $HOME
