@@ -10,7 +10,7 @@ all:
 kube_bootstrap: kube_up  ## Start and provision kubernetes cluster and helm.
 	ANSIBLE_CONFIG=ansible/ansible.cfg ansible-playbook -i ansible/hosts.vagrant  ansible/kube-cluster-bootstrap.yml -vv; \
 	ANSIBLE_CONFIG=ansible/ansible.cfg ansible-playbook -i ansible/hosts.vagrant  ansible/kube-cluster-join.yml -vv; \
-	watch make kube_status
+	make kube_status
 
 	#./helm init --service-account tiller;
 	#./kubectl apply -f kubernetes/manifests/tiller-sa.yaml; \
@@ -20,7 +20,7 @@ kube_tiller:   ## Start and provision kubernetes cluster and helm.
 	./kubectl apply -f kubernetes/manifests/tiller-sa.yaml; \
 	./helm init --service-account tiller --upgrade; \
 	./helm  repo update; \
-	watch make kube_status
+	make kube_status
 #--namespace=metallb-system
 kube_setup:  ## Install Metallb, Dashboard add-ons.
 	./helm   upgrade --install   metallb  -f  kubernetes/helm/charts/metallb/values.yaml stable/metallb;

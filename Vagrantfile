@@ -3,11 +3,12 @@
 Vagrant.configure("2") do |config|
     config.ssh.insert_key = false
     config.vm.box = "p0bailey/k8-stable"
-    config.vm.box_version = "1.4"
+    config.vm.box_version = "1.8"
+
 
     config.vm.provider "virtualbox" do |v|
       v.memory = 3072
-      v.cpus = 4
+      v.cpus = 2
       v.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ]
       v.customize ["modifyvm", :id, "--ioapic", "on"]
       v.customize ["modifyvm", :id, "--chipset", "ich9"]
